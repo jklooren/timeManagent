@@ -1,0 +1,17 @@
+<app-card>
+<section id="tasks">
+  <header>
+    <p>{{ name }}' tasks</p>
+    <menu>
+      <button (click)="onStartAddClick()">Add task</button>
+    </menu>
+  </header>
+  @if (isAddingTask) {
+    <app-new-task (onClick)="onCancelAdd()" (add)="onAddNewTask($event)"/>
+  }
+  <ul>
+    @for (task of selectedUserTasks; track task.id) {
+        <li><app-task [task]="task" (deletedTask)="onComplete($event)"/></li>
+    }
+  </ul>
+</section></app-card>
