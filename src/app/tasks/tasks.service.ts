@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
+import { DUMMY_TASKS } from '../dummy-tasks';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TasksService {
+  constructor() {}
 
-  constructor() { }
+  private tasks = DUMMY_TASKS;
 
-  createANewTask: {title : string; summary: string; dueDate: string}) {
+  createANewTask(
+    task: { title: string; summary: string; dueDate: string },
+    userId: string
+  ) {
     this.tasks.push({
-      id : new Date().getTime().toString(),
-      userId : this.id,
-      title : task.title,
+      id: new Date().getTime().toString(),
+      userId: userId,
+      title: task.title,
       summary: task.summary,
-      dueDate: task.dueDate
-    })
-    this.isAddingTask = false;
+      dueDate: task.dueDate,
+    });
+
   }
+
+  getSelectedUserTasks(userId: string) {
+    return this.tasks.filter((task) => task.userId === userId);
+  }
+  
 }
